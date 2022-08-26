@@ -35,7 +35,7 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: characters
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -169,13 +169,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.4"
-  dartToJs:
-    dependency: transitive
-    description:
-      path: "../../dart2js"
-      relative: true
-    source: path
-    version: "0.0.0"
   dart_style:
     dependency: transitive
     description:
@@ -189,7 +182,7 @@ packages:
       path: "../../fair"
       relative: true
     source: path
-    version: "2.4.1"
+    version: "2.7.0"
   fair_annotation:
     dependency: transitive
     description:
@@ -203,7 +196,21 @@ packages:
       path: "../../compiler"
       relative: true
     source: path
-    version: "2.3.0"
+    version: "1.2.0"
+  fair_dart2dsl:
+    dependency: transitive
+    description:
+      name: fair_dart2dsl
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
+  fair_dart2js:
+    dependency: transitive
+    description:
+      name: fair_dart2js
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.0"
   fair_version:
     dependency: "direct overridden"
     description:
@@ -211,13 +218,6 @@ packages:
       relative: true
     source: path
     version: "2.5.0+1"
-  fairc:
-    dependency: transitive
-    description:
-      path: "../../dart2dsl"
-      relative: true
-    source: path
-    version: "0.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -351,7 +351,7 @@ packages:
       name: matcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: transitive
     description:
@@ -503,7 +503,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   timing:
     dependency: transitive
     description:
@@ -580,7 +580,7 @@ packages:
       name: vector_math
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   watcher:
     dependency: transitive
     description:
