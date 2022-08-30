@@ -201,13 +201,8 @@ Object.__inner__ = function () {};
         milliseconds: milliseconds,
         microseconds: microseconds
       };
-      with (Duration) {
-        with (__thiz__) {
-          with (__arg_ctx__) {
-            Duration._microseconds.call(__thiz__, microsecondsPerDay * days + microsecondsPerHour * hours + microsecondsPerMinute * minutes + microsecondsPerSecond * seconds + microsecondsPerMillisecond * milliseconds + microseconds);
-          }
-        }
-      }
+
+      Duration._microseconds.call(__thiz__, Duration.microsecondsPerDay * __arg_ctx__.days + Duration.microsecondsPerHour * __arg_ctx__.hours + Duration.microsecondsPerMinute * __arg_ctx__.minutes + Duration.microsecondsPerSecond * __arg_ctx__.seconds + Duration.microsecondsPerMillisecond * __arg_ctx__.milliseconds + __arg_ctx__.microseconds);
     },
     __op_add__: function __op_add__(other) {
       return Duration._microseconds(this._duration + other._duration);
@@ -259,18 +254,14 @@ Object.__inner__ = function () {};
 
       var __thiz__ = this;
 
-      with (Duration) {
-        with (__thiz__) {
-          if (inMicroseconds < 0) {
-            return "-".concat(this.__op_ngt__());
-          }
-
-          var twoDigitMinutes = twoDigits(inMinutes % minutesPerHour);
-          var twoDigitSeconds = twoDigits(inSeconds % secondsPerMinute);
-          var sixDigitUs = sixDigits(inMicroseconds % microsecondsPerSecond);
-          return "".concat(inHours, ":").concat(twoDigitMinutes, ":").concat(twoDigitSeconds, ".").concat(sixDigitUs);
-        }
+      if (__thiz__.inMicroseconds < 0) {
+        return "-".concat(this.__op_ngt__());
       }
+
+      var twoDigitMinutes = twoDigits(__thiz__.inMinutes % Duration.minutesPerHour);
+      var twoDigitSeconds = twoDigits(__thiz__.inSeconds % Duration.secondsPerMinute);
+      var sixDigitUs = sixDigits(__thiz__.inMicroseconds % Duration.microsecondsPerSecond);
+      return "".concat(__thiz__.inHours, ":").concat(twoDigitMinutes, ":").concat(twoDigitSeconds, ".").concat(sixDigitUs);
     },
     abs: function abs() {
       return Duration._microseconds(this._duration.abs());
@@ -645,55 +636,51 @@ Object.__inner__ = function () {};
     toString: function toString() {
       var __thiz__ = this;
 
-      with (__thiz__) {
-        var y = _fourDigits(year);
+      var y = _fourDigits(__thiz__.year);
 
-        var d = _twoDigits(day);
+      var d = _twoDigits(__thiz__.day);
 
-        var m = _twoDigits(month);
+      var m = _twoDigits(__thiz__.month);
 
-        var h = _twoDigits(hour);
+      var h = _twoDigits(__thiz__.hour);
 
-        var min = _twoDigits(minute);
+      var min = _twoDigits(__thiz__.minute);
 
-        var sec = _twoDigits(second);
+      var sec = _twoDigits(__thiz__.second);
 
-        var ms = _threeDigits(millisecond);
+      var ms = _threeDigits(__thiz__.millisecond);
 
-        var us = microsecond == 0 ? "" : _threeDigits(microsecond);
+      var us = __thiz__.microsecond == 0 ? "" : _threeDigits(__thiz__.microsecond);
 
-        if (isUtc) {
-          return "".concat(y, "-").concat(m, "-").concat(d, " ").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us, "Z");
-        } else {
-          return "".concat(y, "-").concat(m, "-").concat(d, " ").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us);
-        }
+      if (__thiz__.isUtc) {
+        return "".concat(y, "-").concat(m, "-").concat(d, " ").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us, "Z");
+      } else {
+        return "".concat(y, "-").concat(m, "-").concat(d, " ").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us);
       }
     },
     toIso8601String: function toIso8601String() {
       var __thiz__ = this;
 
-      with (__thiz__) {
-        var y = year >= -9999 && year <= 9999 ? _fourDigits(year) : _sixDigits(year);
+      var y = __thiz__.year >= -9999 && __thiz__.year <= 9999 ? _fourDigits(__thiz__.year) : _sixDigits(__thiz__.year);
 
-        var m = _twoDigits(month);
+      var m = _twoDigits(__thiz__.month);
 
-        var d = _twoDigits(day);
+      var d = _twoDigits(__thiz__.day);
 
-        var h = _twoDigits(hour);
+      var h = _twoDigits(__thiz__.hour);
 
-        var min = _twoDigits(minute);
+      var min = _twoDigits(__thiz__.minute);
 
-        var sec = _twoDigits(second);
+      var sec = _twoDigits(__thiz__.second);
 
-        var ms = _threeDigits(millisecond);
+      var ms = _threeDigits(__thiz__.millisecond);
 
-        var us = microsecond == 0 ? "" : _threeDigits(microsecond);
+      var us = __thiz__.microsecond == 0 ? "" : _threeDigits(__thiz__.microsecond);
 
-        if (isUtc) {
-          return "".concat(y, "-").concat(m, "-").concat(d, "T").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us, "Z");
-        } else {
-          return "".concat(y, "-").concat(m, "-").concat(d, "T").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us);
-        }
+      if (__thiz__.isUtc) {
+        return "".concat(y, "-").concat(m, "-").concat(d, "T").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us, "Z");
+      } else {
+        return "".concat(y, "-").concat(m, "-").concat(d, "T").concat(h, ":").concat(min, ":").concat(sec, ".").concat(ms).concat(us);
       }
     },
     add: function add(duration) {
@@ -785,28 +772,19 @@ Object.__inner__ = function () {};
       };
 
       var years = int.parse(match[1]);
-
-      var _month = int.parse(match[2]);
-
-      var _day = int.parse(match[3]);
-
-      var _hour = parseIntOrZero(match[4]);
-
-      var _minute = parseIntOrZero(match[5]);
-
-      var _second = parseIntOrZero(match[6]);
-
+      var month = int.parse(match[2]);
+      var day = int.parse(match[3]);
+      var hour = parseIntOrZero(match[4]);
+      var minute = parseIntOrZero(match[5]);
+      var second = parseIntOrZero(match[6]);
       var milliAndMicroseconds = parseMilliAndMicroseconds(match[7]);
-
-      var _millisecond = milliAndMicroseconds / Duration.microsecondsPerMillisecond >> 0;
-
-      var _microsecond = milliAndMicroseconds % Duration.microsecondsPerMillisecond;
-
-      var _isUtc = false;
+      var millisecond = milliAndMicroseconds / Duration.microsecondsPerMillisecond >> 0;
+      var microsecond = milliAndMicroseconds % Duration.microsecondsPerMillisecond;
+      var isUtc = false;
 
       if (match[8] != null) {
         // timezone part
-        _isUtc = true;
+        isUtc = true;
         var tzSign = match[9];
 
         if (tzSign != null) {
@@ -815,12 +793,12 @@ Object.__inner__ = function () {};
           var hourDifference = int.parse(match[10]);
           var minuteDifference = parseIntOrZero(match[11]);
           minuteDifference += 60 * hourDifference;
-          _minute -= sign * minuteDifference;
+          minute -= sign * minuteDifference;
         }
       }
 
-      var res = DateTime(years, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
-      res.isUtc = _isUtc;
+      var res = DateTime(years, month, day, hour, minute, second, millisecond, microsecond);
+      res.isUtc = isUtc;
       return res;
     } else {
       throw "Invalid date format" + formattedString;
