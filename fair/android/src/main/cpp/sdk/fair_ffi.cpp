@@ -12,21 +12,24 @@
 /// 同步属性回调
 extern "C" JNIEXPORT __attribute__((used))
 const char *invokeJSCommonFuncSync(char *args) {
-  if (get_fair_ffi() != nullptr) {
-    int attach = 0;
-    JNIEnv *env = get_env(&attach);
-    jclass clazz_fair_app = env->GetObjectClass(get_fair_ffi());
-    jmethodID method_syncPropsCallback = env->GetMethodID(clazz_fair_app,
-                                                          "invokeJSCommonFuncSync",
-                                                          "(Ljava/lang/String;)Ljava/lang/String;");
-    auto result = (jstring)env->CallObjectMethod(get_fair_ffi(),
-                        method_syncPropsCallback,
-                        env->NewStringUTF(args));
-    const char *resultString = env->GetStringUTFChars(result, nullptr);
-    if (attach == 1) {
-      del_env();
+    if (get_fair_ffi() != nullptr) {
+        int attach = 0;
+        JNIEnv *env = get_env(&attach);
+        jclass clazz_fair_app = env->GetObjectClass(get_fair_ffi());
+        jmethodID method_syncPropsCallback = env->GetMethodID(clazz_fair_app,
+                                                              "invokeJSCommonFuncSync",
+                                                              "(Ljava/lang/String;)Ljava/lang/String;");
+        env->DeleteLocalRef(clazz_fair_app);
+        jstring jStr = env->NewStringUTF(args);
+        auto result = (jstring) env->CallObjectMethod(get_fair_ffi(),
+                                                      method_syncPropsCallback,
+                                                      jStr);
+        env->DeleteLocalRef(jStr);
+        const char *resultString = env->GetStringUTFChars(result, nullptr);
+        if (attach == 1) {
+            del_env();
+        }
+        return resultString;
     }
-    return resultString;
-  }
-  return "Fair为空";
+    return "Fair为空";
 }

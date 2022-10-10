@@ -30,7 +30,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 
-
 public class FairPlugin implements FlutterPlugin {
     @SuppressLint("StaticFieldLeak")
     private static FairPlugin plugin;
@@ -48,7 +47,7 @@ public class FairPlugin implements FlutterPlugin {
         mContext = binding.getApplicationContext();
         plugin = this;
         binaryMessenger = binding.getBinaryMessenger();
-        basicChannel =new MethodChannel(binaryMessenger, FairConstant.FLUTTER_BASIC_MESSAGE_CHANNEL);
+        basicChannel = new MethodChannel(binaryMessenger, FairConstant.FLUTTER_BASIC_MESSAGE_CHANNEL);
         basicChannel.setMethodCallHandler(methodHandler);
         fairFfi = new FairFfi();
         CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -69,7 +68,7 @@ public class FairPlugin implements FlutterPlugin {
                     engine = new FairJsFlutterEngine();
                 }
 
-                if (jsLoadResult!=null){
+                if (jsLoadResult != null) {
                     jsLoadResult.success("");
                 }
 
@@ -91,8 +90,8 @@ public class FairPlugin implements FlutterPlugin {
     private MethodChannel.MethodCallHandler methodHandler = (call, result) -> {
         switch (call.method) {
             case "jsLoadListener":
-                jsLoadResult=result;
-                if (jsLoader!=null){
+                jsLoadResult = result;
+                if (jsLoader != null) {
                     jsLoadResult.success("");
                 }
                 break;
@@ -105,6 +104,9 @@ public class FairPlugin implements FlutterPlugin {
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         if (jsLoader != null) {
             jsLoader.release();
+        }
+        if (fairFfi != null) {
+            fairFfi.onAppClose();
         }
     }
 

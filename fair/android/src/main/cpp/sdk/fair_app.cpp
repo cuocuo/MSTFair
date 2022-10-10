@@ -8,6 +8,10 @@
 #include <fair_ffi.h>
 #include <cstring>
 #include <cstdlib>
+#include <android/log.h>
+
+#define TAG    "jni-test" // 这个是自定义的LOG的标识
+#define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,TAG,__VA_ARGS__) // 定义LOGD类型
 
 jobject fair_ffi;
 
@@ -24,6 +28,8 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_wuba_fair_channel_FairFfi_release(JNIEnv *env,
                                                               jobject instance) {
+
+  LOGD("########## 释放内存................");
   env->DeleteGlobalRef(fair_ffi);
 }
 
