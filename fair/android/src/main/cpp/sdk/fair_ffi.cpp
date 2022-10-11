@@ -6,8 +6,12 @@
 #include <fair_ffi.h>
 #include <fair_app.h>
 #include <jni.h>
-#include <android/log.h>
 #include <jni_helper.h>
+
+#include <android/log.h>
+
+#define TAG    "jni-test" // 这个是自定义的LOG的标识
+#define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,TAG,__VA_ARGS__) // 定义LOGD类型
 
 /// 同步属性回调
 extern "C" JNIEXPORT __attribute__((used))
@@ -20,12 +24,16 @@ const char *invokeJSCommonFuncSync(char *args) {
                                                               "invokeJSCommonFuncSync",
                                                               "(Ljava/lang/String;)Ljava/lang/String;");
         env->DeleteLocalRef(clazz_fair_app);
+
         jstring jStr = env->NewStringUTF(args);
         auto result = (jstring) env->CallObjectMethod(get_fair_ffi(),
                                                       method_syncPropsCallback,
                                                       jStr);
-        env->DeleteLocalRef(jStr);
+        LOGD("########## 释放内存jString...............%s",args);
         const char *resultString = env->GetStringUTFChars(result, nullptr);
+        env->DeleteLocalRef(jStr);
+        LOGD("########## 释放内存result...............%s",resultString);
+        env->DeleteLocalRef(result);
         if (attach == 1) {
             del_env();
         }
